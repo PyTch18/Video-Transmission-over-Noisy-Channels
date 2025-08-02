@@ -1,0 +1,45 @@
+Useful Commands
+
+aviread
+movieview
+save('filename','variable')
+imshow
+uint8
+convenc
+poly2trellis
+vitdec
+bi2de
+bin2dec
+reshape
+movie2avi
+
+How to Read the Video and Covert it to Bits
+(This will not work on all MATLAb versions but the idea should be the same)
+
+%load video
+V = aviread('Stephan.avi');
+Nof_Frames = length(V);
+
+for Frame=1:Nof_Frames
+
+%Red Components of the Frame
+R=V(Frame).cdata(:,:,1); 
+%Green Components of the Frame
+G=V(Frame).cdata(:,:,2); 
+%Blue Components of the Frame
+B=V(Frame).cdata(:,:,3); 
+
+R=reshape(R,1,prod(size(R))); %we reshape to put the red as a stream of 1 row 
+G=reshape(G,1,prod(size(G))); %we reshape to put the green as a stream of 1 row 
+B=reshape(R,1,prod(size(B))); %we reshape to put the blue as a stream of 1 row 
+
+R=double(R);%convert red map-8 to decimal
+G=double(G);%convert green map-8 to decimal
+B=double(B);%convert blue map-8 to decimal
+
+Rbin=de2bi(R,8);%convert red decimal to binary in 8 bits
+Gbin=de2bi(G,8);%convert green decimal to binary in 8 bits
+Bbin=de2bi(B,8);%convert blue decimal to binary in 8 bits
+
+end
+
